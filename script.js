@@ -1,5 +1,6 @@
 /*
-
+    TO DO:
+    1) Figure out a way to make playRound function more clean!
 
 */
 
@@ -17,6 +18,7 @@ function computerPlay() {
     }
 }
 
+// We are using playerSelection as output, to look good - this is necessary!
 function makeCaseInsensitive(playerSelection) {
     return playerSelection.charAt(0).toUpperCase() +
         playerSelection.slice(1).toLowerCase();
@@ -48,6 +50,17 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+function logResults() {
+    console.log("GAME OVER");
+    if (playerScore > computerScore) {
+        console.log("YOU WON 😄");
+    } else if (playerScore < computerScore) {
+        console.log("YOU LOST 😞");
+    } else {
+        console.log("YOU TIED 😐");
+    }
+}
+
 function game() {
     for (let i = 0; i < 5; i++) {
         let playerSelection = prompt("Choose your weapon!");
@@ -58,15 +71,7 @@ function game() {
             computerScore);
     }
 
-    console.log("GAME OVER");
-    if (playerScore > computerScore) {
-        console.log("YOU WIN POGGERS");
-    } else if (playerScore < computerScore) {
-        console.log("YOU LOST SADGE");
-    } else {
-        console.log("YOU TIED");
-    }
-
+    logResults();
 }
 
 let playerScore = 0;
