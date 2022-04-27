@@ -39,3 +39,28 @@ function playRound(playerSelection, computerSelection) {
     }
 
 }
+
+function game() {
+    for (let i = 0; i < 5; i++) {
+        let playerSelection = prompt("Choose your weapon!");
+        let computerSelection = computerPlay();
+
+        let result = console.log(playRound(playerSelection, computerSelection));
+        console.log("Player score: " + playerScore + " | Computer score: " + computerScore);
+    }
+
+    console.log("GAME OVER");
+    if (playerScore > computerScore) {
+        console.log("YOU WIN POGGERS");
+    } else if (playerScore < computerScore) {
+        console.log("YOU LOST SADGE");
+    } else {
+        console.log("YOU TIED");
+    }
+
+}
+
+let playerScore = 0;
+let computerScore = 0;
+
+game();
