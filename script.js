@@ -44,7 +44,7 @@ function playRound(playerSelection, computerSelection) {
         }
     } else {
         return `You chose ${playerSelection}, but the only available weapons 
-        are Rock, Paper and Scissors!`
+        are Rock, Paper and Scissors!`;
     }
 }
 
