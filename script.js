@@ -17,6 +17,10 @@ function computerPlay() {
     }
 }
 
+function makeCaseInsensitive(playerSelection) {
+    return playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
+}
+
 function playRound(playerSelection, computerSelection) {
     playerSelection = makeCaseInsensitive(playerSelection);
 
