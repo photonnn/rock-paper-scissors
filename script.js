@@ -24,20 +24,24 @@ function makeCaseInsensitive(playerSelection) {
 function playRound(playerSelection, computerSelection) {
     playerSelection = makeCaseInsensitive(playerSelection);
 
-    if (playerSelection === "Rock" && computerSelection === "Rock" ||
-        playerSelection === "Paper" && computerSelection === "Paper" ||
-        playerSelection === "Scissors" && computerSelection === "Scissors") {
-        return `You Tie! You both chose ${playerSelection}.`;
-    } else if (playerSelection === "Rock" && computerSelection === "Scissors" ||
-        playerSelection === "Scissors" && computerSelection === "Paper" ||
-        playerSelection === "Paper" && computerSelection === "Rock") {
-        playerScore++;
-        return `You Win! ${playerSelection} beats ${computerSelection}.`;
-    } else {
-        computerScore++;
-        return `You Lose! ${computerSelection} beats ${playerSelection}.`;
-    }
+    if (playerSelection === "Rock" || playerSelection === "Paper" || playerSelection === "Rock") {
 
+        if (playerSelection === "Rock" && computerSelection === "Rock" ||
+            playerSelection === "Paper" && computerSelection === "Paper" ||
+            playerSelection === "Scissors" && computerSelection === "Scissors") {
+            return `You Tie! You both chose ${playerSelection}.`;
+        } else if (playerSelection === "Rock" && computerSelection === "Scissors" ||
+            playerSelection === "Scissors" && computerSelection === "Paper" ||
+            playerSelection === "Paper" && computerSelection === "Rock") {
+            playerScore++;
+            return `You Win! ${playerSelection} beats ${computerSelection}.`;
+        } else {
+            computerScore++;
+            return `You Lose! ${computerSelection} beats ${playerSelection}.`;
+        }
+    } else {
+        return `You chose ${playerSelection}, but the only available weapons are Rock, Paper and Scissors!`
+    }
 }
 
 function game() {
@@ -45,7 +49,7 @@ function game() {
         let playerSelection = prompt("Choose your weapon!");
         let computerSelection = computerPlay();
 
-        let result = console.log(playRound(playerSelection, computerSelection));
+        console.log(playRound(playerSelection, computerSelection));
         console.log("Player score: " + playerScore + " | Computer score: " + computerScore);
     }
 
@@ -63,4 +67,6 @@ function game() {
 let playerScore = 0;
 let computerScore = 0;
 
+
+alert("Make sure open console in your DevTools!!!")
 game();
