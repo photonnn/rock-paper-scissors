@@ -18,19 +18,22 @@ function computerPlay() {
 }
 
 function makeCaseInsensitive(playerSelection) {
-    return playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
+    return playerSelection.charAt(0).toUpperCase() +
+        playerSelection.slice(1).toLowerCase();
 }
 
 function playRound(playerSelection, computerSelection) {
     playerSelection = makeCaseInsensitive(playerSelection);
 
-    if (playerSelection === "Rock" || playerSelection === "Paper" || playerSelection === "Rock") {
+    if (playerSelection === "Rock" || playerSelection === "Paper" ||
+        playerSelection === "Rock") {
 
         if (playerSelection === "Rock" && computerSelection === "Rock" ||
             playerSelection === "Paper" && computerSelection === "Paper" ||
             playerSelection === "Scissors" && computerSelection === "Scissors") {
             return `You Tie! You both chose ${playerSelection}.`;
-        } else if (playerSelection === "Rock" && computerSelection === "Scissors" ||
+        } else if (playerSelection === "Rock" &&
+            computerSelection === "Scissors" ||
             playerSelection === "Scissors" && computerSelection === "Paper" ||
             playerSelection === "Paper" && computerSelection === "Rock") {
             playerScore++;
@@ -40,7 +43,8 @@ function playRound(playerSelection, computerSelection) {
             return `You Lose! ${computerSelection} beats ${playerSelection}.`;
         }
     } else {
-        return `You chose ${playerSelection}, but the only available weapons are Rock, Paper and Scissors!`
+        return `You chose ${playerSelection}, but the only available weapons 
+        are Rock, Paper and Scissors!`
     }
 }
 
@@ -50,7 +54,8 @@ function game() {
         let computerSelection = computerPlay();
 
         console.log(playRound(playerSelection, computerSelection));
-        console.log("Player score: " + playerScore + " | Computer score: " + computerScore);
+        console.log("Player score: " + playerScore + " | Computer score: " +
+            computerScore);
     }
 
     console.log("GAME OVER");
