@@ -1,10 +1,14 @@
 /*
+    Tried to it without using any global variables. 
+    Reason? At first I didn't even realise it I could just do that, but it doing
+            it this way was fun so I continued.
+
     TO DO:
-    1) Figure out a way to make playRound function more clean!
+
+    - think of ways to make code cleaner!
+    - change design
 
 */
-
-
 function computerPlay() {
     let randomNumber = Math.floor(Math.random() * 3) + 1;
 
@@ -19,7 +23,7 @@ function computerPlay() {
 }
 
 
-// To assign score after a round we need a to keep a reference, hence call.
+// To assign score after a round we need a to keep a reference, hence call func.
 // Other 2 arguments are self-explanatory in the code.
 function playRound() {
     playerSelection = this.textContent;
@@ -44,9 +48,11 @@ function playRound() {
 
 }
 
+// For not I'll leave it like this, had some ideas because assignScore and
+// colorChange are practically the same though
 function assignScore(winnerSelection, computerSelection) {
 
-    // previous colored buttons are return to initial background color!
+    // previous colored buttons are returned to initial background color!
     resetButtonStyle();
 
     switch (winnerSelection) {
@@ -86,6 +92,8 @@ function endingCheck() {
     }
 }
 
+// It was too bothersome create a restart button, and I had no success in
+// managing to disable it, so here is the cooler alternative
 function endingScreen() {
     const btns = document.querySelectorAll("button");
     btns.forEach(btn => btn.remove());
@@ -100,6 +108,8 @@ function endingScreen() {
 
 }
 
+// likely inefficient, but easier to understand with seperate function
+// than to clutter the switch statement too much
 function changeColor(winnerSelection, computerSelection) {
 
     switch (winnerSelection) {
@@ -120,9 +130,9 @@ function changeColor(winnerSelection, computerSelection) {
 }
 
 function game() {
-    const pbtns = document.querySelectorAll(".P");
+    const btns = document.querySelectorAll(".P");
 
-    pbtns.forEach(btn => btn.addEventListener('click', playRound));
+    btns.forEach(btn => btn.addEventListener('click', playRound));
 }
 
 game();
