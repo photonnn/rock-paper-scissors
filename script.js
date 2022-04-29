@@ -18,65 +18,111 @@ function computerPlay() {
     }
 }
 
-// We are using playerSelection as output, to look good - this is necessary!
-function makeCaseInsensitive(playerSelection) {
-    return playerSelection.charAt(0).toUpperCase() +
-        playerSelection.slice(1).toLowerCase();
+
+// To assign score after a round we need a to keep a reference, hence call.
+// Other 2 arguments are self-explanatory in the code.
+function playRound() {
+    playerSelection = this.textContent;
+    let computerSelection = computerPlay();
+
+
+    if (playerSelection === "Rock" && computerSelection === "Rock" ||
+        playerSelection === "Paper" && computerSelection === "Paper" ||
+        playerSelection === "Scissors" && computerSelection === "Scissors") {
+        assignScore.call(this, "Tie", computerSelection);
+    } else if (playerSelection === "Rock" &&
+        computerSelection === "Scissors" ||
+        playerSelection === "Scissors" && computerSelection === "Paper" ||
+        playerSelection === "Paper" && computerSelection === "Rock") {
+        assignScore.call(this, "Player", computerSelection);
+    } else {
+        this.style.backgroundColor = "Red";
+        const compChoice = document.querySelector(`#${computerSelection}`);
+        compChoice.style.backgroundColor = "Green";
+        assignScore.call(this, "Computer", computerSelection);
+    }
+
 }
 
-function playRound(playerSelection, computerSelection) {
-    playerSelection = makeCaseInsensitive(playerSelection);
+function assignScore(winnerSelection, computerSelection) {
 
-    if (playerSelection === "Rock" || playerSelection === "Paper" ||
-        playerSelection === "Rock") {
+    // previous colored buttons are return to initial background color!
+    resetButtonStyle();
 
-        if (playerSelection === "Rock" && computerSelection === "Rock" ||
-            playerSelection === "Paper" && computerSelection === "Paper" ||
-            playerSelection === "Scissors" && computerSelection === "Scissors") {
-            return `You Tie! You both chose ${playerSelection}.`;
-        } else if (playerSelection === "Rock" &&
-            computerSelection === "Scissors" ||
-            playerSelection === "Scissors" && computerSelection === "Paper" ||
-            playerSelection === "Paper" && computerSelection === "Rock") {
-            playerScore++;
-            return `You Win! ${playerSelection} beats ${computerSelection}.`;
-        } else {
-            computerScore++;
-            return `You Lose! ${computerSelection} beats ${playerSelection}.`;
-        }
-    } else {
-        return `You chose ${playerSelection}, but the only available weapons 
-        are Rock, Paper and Scissors!`;
+    switch (winnerSelection) {
+        case "Player":
+            const playerScore = document.querySelector("#player-score");
+            +playerScore.textContent++;
+            endingCheck();
+            changeColor.call(this, winnerSelection, computerSelection);
+            break;
+        case "Computer":
+            const computerScore = document.querySelector("#computer-score");
+            +computerScore.textContent++;
+            endingCheck();
+            changeColor.call(this, winnerSelection, computerSelection);
+            break;
+        case "Tie":
+            changeColor.call(this, winnerSelection, computerSelection);
     }
 }
 
-function logResults() {
-    console.log("GAME OVER");
-    if (playerScore > computerScore) {
-        console.log("YOU WON 😄");
-    } else if (playerScore < computerScore) {
-        console.log("YOU LOST 😞");
-    } else {
-        console.log("YOU TIED 😐");
+function resetButtonStyle() {
+    const btn = document.querySelectorAll("button");
+    btn.forEach(button => button.style.backgroundColor = "rgb(239, 239, 239)");
+}
+
+function endingCheck() {
+    const playerScore = document.querySelector("#player-score");
+    const computerScore = document.querySelector("#computer-score");
+    const score = document.querySelector("#result-box");
+
+    if (+playerScore.textContent == 5) {
+        score.textContent = "YOU WIN";
+        endingScreen();
+    } else if (+computerScore.textContent == 5) {
+        score.textContent = "YOU LOSE";
+        endingScreen();
+    }
+}
+
+function endingScreen() {
+    const btns = document.querySelectorAll("button");
+    btns.forEach(btn => btn.remove());
+
+    setTimeout(() => {
+        const para = document.querySelector("#result-box");
+        para.textContent = "RESTARTING";
+        setTimeout(() => {
+            location.reload();
+        }, "2000")
+    }, "1000")
+
+}
+
+function changeColor(winnerSelection, computerSelection) {
+
+    switch (winnerSelection) {
+        case "Tie":
+            this.style.backgroundColor = "Gray";
+            compChoice = document.querySelector(`#${computerSelection}`);
+            compChoice.style.backgroundColor = "Gray";
+            break;
+        case "Computer":
+            this.style.backgroundColor = "Red";
+            compChoice = document.querySelector(`#${computerSelection}`);
+            compChoice.style.backgroundColor = "Green";
+        case "Player":
+            this.style.backgroundColor = "Green";
+            compChoice = document.querySelector(`#${computerSelection}`);
+            compChoice.style.backgroundColor = "Red";
     }
 }
 
 function game() {
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Choose your weapon!");
-        let computerSelection = computerPlay();
+    const pbtns = document.querySelectorAll(".P");
 
-        console.log(playRound(playerSelection, computerSelection));
-        console.log("Player score: " + playerScore + " | Computer score: " +
-            computerScore);
-    }
-
-    logResults();
+    pbtns.forEach(btn => btn.addEventListener('click', playRound));
 }
 
-let playerScore = 0;
-let computerScore = 0;
-
-
-alert("Make sure open console in your DevTools!!!")
 game();
