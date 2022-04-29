@@ -34,15 +34,11 @@ function playRound() {
         playerSelection === "Paper" && computerSelection === "Paper" ||
         playerSelection === "Scissors" && computerSelection === "Scissors") {
         assignScore.call(this, "Tie", computerSelection);
-    } else if (playerSelection === "Rock" &&
-        computerSelection === "Scissors" ||
+    } else if (playerSelection === "Rock" && computerSelection === "Scissors" ||
         playerSelection === "Scissors" && computerSelection === "Paper" ||
         playerSelection === "Paper" && computerSelection === "Rock") {
         assignScore.call(this, "Player", computerSelection);
     } else {
-        this.style.backgroundColor = "Red";
-        const compChoice = document.querySelector(`#${computerSelection}`);
-        compChoice.style.backgroundColor = "Green";
         assignScore.call(this, "Computer", computerSelection);
     }
 
@@ -51,7 +47,6 @@ function playRound() {
 // For not I'll leave it like this, had some ideas because assignScore and
 // colorChange are practically the same though
 function assignScore(winnerSelection, computerSelection) {
-
     // previous colored buttons are returned to initial background color!
     resetButtonStyle();
 
@@ -60,16 +55,16 @@ function assignScore(winnerSelection, computerSelection) {
             const playerScore = document.querySelector("#player-score");
             +playerScore.textContent++;
             endingCheck();
-            changeColor.call(this, winnerSelection, computerSelection);
+            changeColor.call(this, "Player", computerSelection);
             break;
         case "Computer":
             const computerScore = document.querySelector("#computer-score");
             +computerScore.textContent++;
             endingCheck();
-            changeColor.call(this, winnerSelection, computerSelection);
+            changeColor.call(this, "Computer", computerSelection);
             break;
         case "Tie":
-            changeColor.call(this, winnerSelection, computerSelection);
+            changeColor.call(this, "Tie", computerSelection);
     }
 }
 
@@ -111,7 +106,7 @@ function endingScreen() {
 // likely inefficient, but easier to understand with seperate function
 // than to clutter the switch statement too much
 function changeColor(winnerSelection, computerSelection) {
-
+    console.log(winnerSelection);
     switch (winnerSelection) {
         case "Tie":
             this.style.backgroundColor = "Gray";
@@ -122,6 +117,7 @@ function changeColor(winnerSelection, computerSelection) {
             this.style.backgroundColor = "Red";
             compChoice = document.querySelector(`#${computerSelection}`);
             compChoice.style.backgroundColor = "Green";
+            break;
         case "Player":
             this.style.backgroundColor = "Green";
             compChoice = document.querySelector(`#${computerSelection}`);
