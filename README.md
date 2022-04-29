@@ -1,3 +1,7 @@
 # rock-paper-scissors
 
-This is for now a console version of rock-paper-scissors.
+Used this project as a gateway to DOM manipulation. ( first time )
+
+Design is pretty basic for now.
+
+I've made sure to include comments, have fun!
